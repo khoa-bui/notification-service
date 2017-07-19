@@ -5,7 +5,6 @@ package com.phillip.services.notification.proxy;
 
 import java.io.UnsupportedEncodingException;
 
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.phillip.services.notification.error.FirebaseException;
@@ -21,7 +20,6 @@ import com.phillip.services.notification.util.PropertyFactory;
  * 
  */
 @Service("notificationProxy")
-@PropertySource("classpath:settings.properties")
 public class NotificationProxy implements ISender {
 
 	private PropertiesUtil config = PropertyFactory
@@ -34,7 +32,6 @@ public class NotificationProxy implements ISender {
 	public FirebaseResponse send(String message, String topic) {
 
 		FirebaseResponse response = null;
-		topic = getCorrectTopic(FireBaseTopic.valueOf(topic));
 		message = buildFireBaseMessage(message, topic);
 
 		try {
@@ -61,6 +58,12 @@ public class NotificationProxy implements ISender {
 	private String buildFireBaseMessage(String originMsg, String topic) {
 		return "{ " + "\"data\":" + originMsg + "," + "\"to\":\"" + topic
 				+ "\"" + "}";
+	}
+
+	@Override
+	public FirebaseResponse send(String message, FireBaseTopic topic) {
+		String topicValue = getCorrectTopic(topic);
+		return send(message, topicValue);
 	}
 
 }

@@ -15,18 +15,27 @@ import javax.jms.TextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import com.phillip.services.notification.interfaces.ISender;
+import com.phillip.services.notification.models.FirebaseResponse;
+import com.phillip.services.notification.parser.MessageJsonParser;
 
 /**
  * @author Bui Dang Khoa
  * 
  */
 @Service("priceAlertIPhoneConsumer")
-public class PriceAlertIPhoneConsumer extends BaseAlertConsumer implements MessageListener {
-	
-	
+public class PriceAlertIPhoneConsumer extends BaseAlertConsumer implements
+		MessageListener {
+
 	@Autowired
 	@Qualifier("priceAlertIphoneQueue")
 	Queue priceAlertIphoneQueue;
+
+	@Autowired
+	@Qualifier("notificationProxy")
+	private ISender notificationProxy;
 
 	@PostConstruct
 	public void init() throws Exception {
@@ -59,7 +68,19 @@ public class PriceAlertIPhoneConsumer extends BaseAlertConsumer implements Messa
 
 				String text = ((TextMessage) message).getText();
 
-				System.out.println("The Notification Message is : \n" + text);
+				System.out.println("The Notification Message is : " + text);
+
+				String fireBaseMessage = MessageJsonParser
+						.parsePriceMessage(text);
+
+				if (!StringUtils.isEmpty(fireBaseMessage)) {
+
+					FirebaseResponse response = notificationProxy.send(
+							fireBaseMessage, config.getPriceTopic());
+
+					System.out.println("The FirebaseResponse Message is : "
+							+ response.getRawBody());
+				}
 
 			} catch (JMSException ex) {
 
@@ -75,7 +96,5 @@ public class PriceAlertIPhoneConsumer extends BaseAlertConsumer implements Messa
 		}
 
 	}
-
-
 
 }

@@ -19,6 +19,8 @@ public class PropertiesUtil {
 	String fireBaseUrl;
 	@Value("${firebase.serverKey}")
 	String serverKey;
+	@Value("${firebase.account.topic}")
+	String accountTopic;
 	@Value("${firebase.price.topic}")
 	String priceTopic;
 	@Value("${firebase.order.topic}")
@@ -29,12 +31,18 @@ public class PropertiesUtil {
 	String  priceAlertIphoneQueue;
 	@Value("${google.pricealert.android.queue}")
 	String  priceAlertAndroidQueue;
-	@Value("${apple.orderealert.iphone.queue}")
+	@Value("${apple.orderalert.iphone.queue}")
 	String  orderAlertIphoneQueue;
-	@Value("${apple.orderealert.ipad.queue}")
+	@Value("${apple.orderalert.ipad.queue}")
 	String  orderAlertIpadQueue;
-	@Value("${google.orderealert.android.queue}")
+	@Value("${google.orderalert.android.queue}")
 	String  orderAlertAndroidQueue;
+	@Value("${apple.accountalert.iphone.queue}")
+	String  accountAlertIphoneQueue;
+	@Value("${apple.accountalert.ipad.queue}")
+	String  accountAlertIpadQueue;
+	@Value("${google.accountalert.android.queue}")
+	String  accountAlertAndroidQueue;
 	@Value("${apple.iphone.queue}")
 	String  schedulerAlertIphoneQueue;
 	@Value("${apple.ipad.queue}")
@@ -145,6 +153,38 @@ public class PropertiesUtil {
 
 	public void setSchedulerAlertAndroidQueue(String schedulerAlertAndroidQueue) {
 		this.schedulerAlertAndroidQueue = schedulerAlertAndroidQueue;
+	}
+
+	public String getAccountAlertIphoneQueue() {
+		return accountAlertIphoneQueue;
+	}
+
+	public void setAccountAlertIphoneQueue(String accountAlertIphoneQueue) {
+		this.accountAlertIphoneQueue = accountAlertIphoneQueue;
+	}
+
+	public String getAccountAlertIpadQueue() {
+		return accountAlertIpadQueue;
+	}
+
+	public void setAccountAlertIpadQueue(String accountAlertIpadQueue) {
+		this.accountAlertIpadQueue = accountAlertIpadQueue;
+	}
+
+	public String getAccountAlertAndroidQueue() {
+		return accountAlertAndroidQueue;
+	}
+
+	public void setAccountAlertAndroidQueue(String accountAlertAndroidQueue) {
+		this.accountAlertAndroidQueue = accountAlertAndroidQueue;
+	}
+
+	public String getAccountTopic() {
+		return accountTopic;
+	}
+
+	public void setAccountTopic(String accountTopic) {
+		this.accountTopic = accountTopic;
 	}
 
 }

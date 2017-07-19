@@ -12,6 +12,9 @@ import javax.naming.NamingException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
+
+import com.phillip.services.notification.util.PropertiesUtil;
+import com.phillip.services.notification.util.PropertyFactory;
 /**
  * @author Bui Dang Khoa
  * 
@@ -19,6 +22,8 @@ import org.springframework.jms.core.JmsTemplate;
 @Configuration
 public class JmsHornetQConfiguration {
 
+	private PropertiesUtil config = PropertyFactory
+			.getPropertiesUtil();
 	@Bean
 	public JmsTemplate hornetQJmsTemplate() {
 
@@ -45,43 +50,58 @@ public class JmsHornetQConfiguration {
 	}
 	
 	@Bean
+	public Queue accountAlertAndroidQueue() {
+		return getJmsQueue(config.getAccountAlertAndroidQueue());
+	}
+	
+	@Bean
+	public Queue accountAlertIphoneQueue() {
+		return getJmsQueue(config.getAccountAlertIphoneQueue());
+	}
+	
+	@Bean
+	public Queue accountAlertIpadQueue() {
+		return getJmsQueue(config.getAccountAlertIpadQueue());
+	}
+	
+	@Bean
 	public Queue priceAlertIphoneQueue() {
-		return getJmsQueue("java:/jms/queue/price-iphone-queue");
+		return getJmsQueue(config.getPriceAlertIphoneQueue());
 	}
 	
 	@Bean
 	public Queue priceAlertAndroidQueue() {
-		return getJmsQueue("java:/jms/queue/price-android-queue");
+		return getJmsQueue(config.getPriceAlertAndroidQueue());
 	}
 	
 	@Bean
 	public Queue orderAlertAndroidQueue() {
-		return getJmsQueue("java:/jms/queue/order-android-queue");
+		return getJmsQueue(config.getOrderAlertAndroidQueue());
 	}
 	
 	@Bean
 	public Queue orderAlertIphoneQueue() {
-		return getJmsQueue("java:/jms/queue/order-iphone-queue");
+		return getJmsQueue(config.getOrderAlertIphoneQueue());
 	}
 	
 	@Bean
 	public Queue orderAlertIpadQueue() {
-		return getJmsQueue("java:/jms/queue/order-ipad-queue");
+		return getJmsQueue(config.getOrderAlertIpadQueue());
 	}
 	
 	@Bean
 	public Queue schedulerAlertAndroidQueue() {
-		return getJmsQueue("java:/jms/queue/android-queue");
+		return getJmsQueue(config.getSchedulerAlertAndroidQueue());
 	}
 	
 	@Bean
 	public Queue schedulerAlertIpadQueue() {
-		return getJmsQueue("java:/jms/queue/ipad-queue");
+		return getJmsQueue(config.getSchedulerAlertIpadQueue());
 	}
 	
 	@Bean
 	public Queue schedulerAlertIphoneQueue() {
-		return getJmsQueue("java:/jms/queue/iphone-queue");
+		return getJmsQueue(config.getSchedulerAlertIphoneQueue());
 	}
 	
 	@Bean

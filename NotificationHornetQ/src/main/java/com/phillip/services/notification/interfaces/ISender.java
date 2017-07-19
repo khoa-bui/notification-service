@@ -3,6 +3,7 @@
  */
 package com.phillip.services.notification.interfaces;
 
+import com.phillip.services.notification.models.FireBaseTopic;
 import com.phillip.services.notification.models.FirebaseResponse;
 
 
@@ -13,4 +14,6 @@ import com.phillip.services.notification.models.FirebaseResponse;
 public interface ISender {
 
 	public FirebaseResponse send(String message, String topic);
+	
+	public FirebaseResponse send(String message, FireBaseTopic topic);
 }

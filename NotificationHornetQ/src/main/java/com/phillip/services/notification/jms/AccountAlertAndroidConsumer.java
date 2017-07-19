@@ -25,13 +25,13 @@ import com.phillip.services.notification.parser.MessageJsonParser;
  * @author Bui Dang Khoa
  * 
  */
-@Service("priceAlertAndroidConsumer")
-public class PriceAlertAndroidConsumer extends BaseAlertConsumer implements
+@Service("accountAlertAndroidConsumer")
+public class AccountAlertAndroidConsumer extends BaseAlertConsumer implements
 		MessageListener {
 
 	@Autowired
-	@Qualifier("priceAlertAndroidQueue")
-	Queue priceAlertAndroidQueue;
+	@Qualifier("accountAlertAndroidQueue")
+	Queue accountAlertAndroidQueue;
 
 	@Autowired
 	@Qualifier("notificationProxy")
@@ -41,7 +41,7 @@ public class PriceAlertAndroidConsumer extends BaseAlertConsumer implements
 	public void init() throws Exception {
 		super.init();
 		MessageConsumer notificationsQueueConsumer = notificationsQueueSession
-				.createConsumer(priceAlertAndroidQueue);
+				.createConsumer(accountAlertAndroidQueue);
 
 		notificationsQueueConsumer.setMessageListener(this);
 
@@ -71,12 +71,11 @@ public class PriceAlertAndroidConsumer extends BaseAlertConsumer implements
 				System.out.println("The Notification Message is : " + text);
 
 				String fireBaseMessage = MessageJsonParser
-						.parsePriceMessage(text);
+						.parseAccountMessage(text);
 
 				if (!StringUtils.isEmpty(fireBaseMessage)) {
-
 					FirebaseResponse response = notificationProxy.send(
-							fireBaseMessage, config.getPriceTopic());
+							fireBaseMessage, config.getAccountTopic());
 
 					System.out.println("The FirebaseResponse Message is : "
 							+ response.getRawBody());

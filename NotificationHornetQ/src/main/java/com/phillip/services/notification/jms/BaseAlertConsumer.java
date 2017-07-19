@@ -10,7 +10,11 @@ import javax.jms.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+
+import com.phillip.services.notification.util.PropertiesUtil;
+import com.phillip.services.notification.util.PropertyFactory;
 
 /**
  * @author Bui Dang Khoa
@@ -27,6 +31,8 @@ public class BaseAlertConsumer {
 
 	Session notificationsQueueSession = null;
 
+    PropertiesUtil config = PropertyFactory
+			.getPropertiesUtil();
 
 	@PostConstruct
 	public void init() throws Exception {
