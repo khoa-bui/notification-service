@@ -6,11 +6,11 @@ package com.phillip.services.notification.jms;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Queue;
-import javax.jms.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +19,6 @@ import org.springframework.util.StringUtils;
 
 import com.phillip.services.notification.interfaces.ISender;
 import com.phillip.services.notification.models.FirebaseResponse;
-import com.phillip.services.notification.parser.MessageJsonParser;
 
 /**
  * @author Bui Dang Khoa
@@ -62,20 +61,25 @@ public class AccountAlertIPadConsumer extends BaseAlertConsumer implements
 	@Override
 	public void onMessage(Message message) {
 
-		if (message instanceof TextMessage) {
+		if (message instanceof MapMessage) {
 
 			try {
 
-				String text = ((TextMessage) message).getText();
+				MapMessage mapMessage = (MapMessage) message;
 
-				System.out.println("The Notification Message is : " + text);
-
-				String fireBaseMessage = MessageJsonParser
-						.parseAccountMessage(text);
+				String topic = getCorrectTopic(mapMessage.getInt("notifyType"));
 				
+
+				if (null == topic) {
+					topic = config.getAccountTopic();
+				}
+				String fireBaseMessage = getFireBaseMessage(extractMapFromMessage(mapMessage));
+
+				System.out.println(" Firebase Message: " + fireBaseMessage);
+
 				if (!StringUtils.isEmpty(fireBaseMessage)) {
 					FirebaseResponse response = notificationProxy.send(
-							fireBaseMessage, config.getAccountTopic());
+							fireBaseMessage, topic);
 
 					System.out.println("The FirebaseResponse Message is : "
 							+ response.getRawBody());

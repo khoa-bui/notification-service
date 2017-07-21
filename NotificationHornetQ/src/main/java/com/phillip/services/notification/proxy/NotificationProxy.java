@@ -50,6 +50,8 @@ public class NotificationProxy implements ISender {
 			return config.getPriceTopic();
 		case ORDER:
 			return config.getOrderTopic();
+		case ACCOUNT:
+			return config.getAccountTopic();
 		default:
 			return config.getSchedulerTopic();
 		}

@@ -9,5 +9,5 @@ package com.phillip.services.notification.models;
  */
 public enum FireBaseTopic {
 
-	PRICE, SCHEDULER, ORDER
+	PRICE, SCHEDULER, ORDER, ACCOUNT
 }
