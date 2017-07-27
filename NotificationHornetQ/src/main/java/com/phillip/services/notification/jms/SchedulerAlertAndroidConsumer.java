@@ -12,6 +12,7 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Queue;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,8 @@ public class SchedulerAlertAndroidConsumer extends BaseAlertConsumer implements
 	@Autowired
 	@Qualifier("notificationProxy")
 	private ISender notificationProxy;
+	
+	private final static Logger logger = Logger.getLogger(SchedulerAlertAndroidConsumer.class);
 
 	@PostConstruct
 	public void init() throws Exception {
@@ -74,12 +77,14 @@ public class SchedulerAlertAndroidConsumer extends BaseAlertConsumer implements
 				}
 				String fireBaseMessage = getFireBaseMessage(extractMapFromMessage(mapMessage));
 				
+				logger.info(" Firebase Message: " + fireBaseMessage);
+				
 				if (!StringUtils.isEmpty(fireBaseMessage)) {
 
 					FirebaseResponse response = notificationProxy.send(
 							fireBaseMessage, topic);
 
-					System.out.println("The FirebaseResponse Message is : "
+					logger.info("The FirebaseResponse Message is : "
 							+ response.getRawBody());
 				}
 

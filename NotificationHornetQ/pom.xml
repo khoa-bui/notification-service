@@ -157,15 +157,9 @@
 		</dependency>
 		<!-- Logback -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${jcl.slf4j.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
 		</dependency>
 
 
@@ -210,13 +204,6 @@
             <artifactId>jboss-jms-api_1.1_spec</artifactId>
             <version>${jboss-jms-api_1.1_spec.version}</version>
         </dependency>
-		<!-- <dependency>
-		    <groupId>org.jboss.spec</groupId>
-		    <artifactId>jboss-javaee-6.0</artifactId>
-		    <version>${jboss-javaee.version}</version>
-		    <type>pom</type>
-		    <scope>provided</scope>
-		</dependency> -->
 	</dependencies>
 	<parent>
 		<artifactId>NotificationService</artifactId>

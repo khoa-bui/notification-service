@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 
 import com.phillip.services.notification.interfaces.ISender;
 import com.phillip.services.notification.models.FirebaseResponse;
+import org.apache.log4j.Logger;
 
 /**
  * @author Bui Dang Khoa
@@ -35,6 +36,8 @@ public class AccountAlertAndroidConsumer extends BaseAlertConsumer implements
 	@Autowired
 	@Qualifier("notificationProxy")
 	private ISender notificationProxy;
+	
+	private final static Logger logger = Logger.getLogger(AccountAlertAndroidConsumer.class);
 
 	@PostConstruct
 	public void init() throws Exception {
@@ -74,13 +77,13 @@ public class AccountAlertAndroidConsumer extends BaseAlertConsumer implements
 				}
 				String fireBaseMessage = getFireBaseMessage(extractMapFromMessage(mapMessage));
 
-				System.out.println(" Firebase Message: " + fireBaseMessage);
+				logger.info(" Firebase Message: " + fireBaseMessage);
 
 				if (!StringUtils.isEmpty(fireBaseMessage)) {
 					FirebaseResponse response = notificationProxy.send(
 							fireBaseMessage, topic);
 
-					System.out.println("The FirebaseResponse Message is : "
+					logger.info("The FirebaseResponse Message is : "
 							+ response.getRawBody());
 				}
 
