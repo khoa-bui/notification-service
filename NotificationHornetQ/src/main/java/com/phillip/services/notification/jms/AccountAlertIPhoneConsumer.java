@@ -44,11 +44,11 @@ public class AccountAlertIPhoneConsumer extends BaseAlertConsumer implements
 		super.init();
 		MessageConsumer notificationsQueueConsumer = notificationsQueueSession
 				.createConsumer(accountAlertIphoneQueue);
-
+		
 		notificationsQueueConsumer.setMessageListener(this);
 
 		notificationsQueueConnection.start();
-
+		
 	}
 
 	@PreDestroy

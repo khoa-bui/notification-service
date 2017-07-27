@@ -12,6 +12,7 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Queue;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ import org.springframework.util.StringUtils;
 
 import com.phillip.services.notification.interfaces.ISender;
 import com.phillip.services.notification.models.FirebaseResponse;
-import org.apache.log4j.Logger;
 
 /**
  * @author Bui Dang Khoa

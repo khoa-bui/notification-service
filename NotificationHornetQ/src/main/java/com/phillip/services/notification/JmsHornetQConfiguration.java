@@ -104,8 +104,8 @@ public class JmsHornetQConfiguration {
 		return getJmsQueue(config.getSchedulerAlertIphoneQueue());
 	}
 	
-	@Bean
-	public Queue getJmsQueue(String jndi) {
+	
+	private Queue getJmsQueue(String jndi) {
 		 // Gets the JNDI context
         Context jndiContext;
         Queue queue = null;
@@ -118,8 +118,8 @@ public class JmsHornetQConfiguration {
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	
+		} 
+	   
 		return queue;
 	}
 }
